@@ -1,8 +1,8 @@
-# ansible-playbook -i inventory.yml --ask-become-pass
+# ansible-playbook -i hosts -K -v
 ---
   - name: Executing Roles
     hosts: all
     become: true
     roles:
-      # - docker
+      - docker
       - portainer
