@@ -1,0 +1,20 @@
+---
+- name: Install Docker on Ubuntu
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure dependencies are installed
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name:
+      ansible.builtin.apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
+

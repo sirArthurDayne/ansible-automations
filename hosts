@@ -1,0 +1,7 @@
+[all:vars]
+ansible_user="krosis"
+ansible_become=yes
+ansible_become_method=sudo
+
+[noveria]
+10.10.0.115

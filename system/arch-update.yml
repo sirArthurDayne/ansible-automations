@@ -1,0 +1,21 @@
+---
+# update archLinux systems
+- name: update archLinux System
+  #  become: true
+  tasks:
+    - name: Check for Updates
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+        register: arch_update_result
+
+    - name: Check if reboot is required
+      when: ansible_facts['os_family'] == 'Arch' and arch_update_result.changed
+      ansible.builtin.stat:
+        path: /run/reboot-required
+      register: arch_reboot_required
+
+    - name: Reboot archLinux
+      when: arch_reboot_required.stat.exists | default(false)
+      ansible.builtin.reboot:
+        reboot.timeout: 600
