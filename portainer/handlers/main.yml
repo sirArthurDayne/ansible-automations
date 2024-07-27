@@ -1,6 +1,6 @@
 ---
 - name: Start Portainer
-  community.docker.docker_compose:
-    project_src: /home/krosis/docker-compose/portainer
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/portainer"
     state: present
     restarted: true

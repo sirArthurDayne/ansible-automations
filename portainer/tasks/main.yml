@@ -29,6 +29,6 @@
     - Start Portainer
 
 - name: Run Portainer docker-compose up
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ lookup('env', 'HOME') }}/docker-compose/portainer"
     state: present
