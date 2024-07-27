@@ -1,0 +1,48 @@
+---
+- name: Ensure docker-compose is installed
+  ansible.builtin.package:
+    name: docker-compose
+    state: present
+
+- name: Ensure Docker service is running
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Setup netboot.xyz directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/netboot.xyz"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: make config directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/netboot.xyz/config"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: make assets directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/netboot.xyz/assets"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Deploy netboot.xyz using Docker Compose
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/netboot.xyz/docker-compose.yml"
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Run Netboot.xyz with docker-compose up
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/netboot.xyz"
+    state: present

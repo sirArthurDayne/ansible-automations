@@ -4,5 +4,7 @@
     hosts: all
     become: true
     roles:
-      - docker
-      - portainer
+      - netboot.xyz
+      # - docker
+      # - portainer
+      # - pyenv
