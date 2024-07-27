@@ -1,7 +1,5 @@
 ---
 - name: Uninstall Docker on Ubuntu
-  hosts: all
-  become: true
   tasks:
     - name: Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages
       ansible.builtin.apt:

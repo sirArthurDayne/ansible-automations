@@ -1,0 +1,8 @@
+---
+  -name: Executing Roles
+  hosts: all
+  become: true
+  roles:
+    - ./docker/docker-install.yml
+    # - ./docker/uninstall.yml
+    # - docker/portainer.yml
