@@ -1,0 +1,25 @@
+- name: Instalar pyenv usando curl y bash
+  shell: curl https://pyenv.run | bash
+  args:
+    executable: /bin/bash
+
+- name: Agregar PYENV_ROOT a ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PYENV_ROOT="$HOME/.pyenv"'
+    create: yes
+    state: present
+
+- name: Agregar pyenv al PATH si no está presente en ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"'
+    create: yes
+    state: present
+
+- name: Agregar pyenv init a ~/.bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: 'eval "$(pyenv init -)"'
+    create: yes
+    state: present
