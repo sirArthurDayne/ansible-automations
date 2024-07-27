@@ -1,26 +1,24 @@
 ---
-- name: Uninstall Docker on Ubuntu
-  tasks:
-    - name: Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages
-      ansible.builtin.apt:
-        name: "{{ item }}"
-        state: absent
-        purge: yes
-        autoremove: yes
-      loop:
-        - docker-ce
-        - docker-ce-cli
-        - containerd.io
-        - docker-buildx-plugin
-        - docker-compose-plugin
-        - docker-ce-rootless-extras
+- name: Uninstall the Docker Engine, CLI, containerd, and Docker Compose packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+    autoremove: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+    - docker-ce-rootless-extras
 
-    - name: Remove /var/lib/docker directory
-      ansible.builtin.file:
-        path: /var/lib/docker
-        state: absent
+- name: Remove /var/lib/docker directory
+  ansible.builtin.file:
+    path: /var/lib/docker
+    state: absent
 
-    - name: Remove /var/lib/containerd directory
-      ansible.builtin.file:
-        path: /var/lib/containerd
-        state: absent
+- name: Remove /var/lib/containerd directory
+  ansible.builtin.file:
+    path: /var/lib/containerd
+    state: absent
