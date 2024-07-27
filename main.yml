@@ -1,9 +1,8 @@
 # ansible-playbook -i inventory.yml --ask-become-pass
 ---
-  -name: Executing Roles
-  hosts: all
-  become: true
-  roles:
-    - ./docker/docker-install.yml
-    # - ./portainer/install.yml
-    # - ./docker/uninstall.yml
+  - name: Executing Roles
+    hosts: all
+    become: true
+    roles:
+      - docker
+      - portainer

@@ -12,7 +12,7 @@
 
 - name: Setup Portainer directory
   ansible.builtin.file:
-    path: /home/krosis/docker-compose/portainer
+    path: "lookup('env', 'HOME')/docker-compose/portainer"
     state: directory
     mode: '0755'  # Optional file permissions
     owner: krosis  # Optional ownership
@@ -21,7 +21,7 @@
 - name: Deploy Portainer using Docker Compose
   ansible.builtin.template:
     src: "templates/docker_compose.yml"
-    dest: "/home/krosis/docker-compose/portainer/docker-compose.yaml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/portainer/docker-compose.yaml"
     mode: '0755'  # Optional file permissions
     owner: krosis  # Optional ownership
     group: krosis  # Optional group ownership
@@ -30,5 +30,5 @@
 
 - name: Run Portainer docker-compose up
   community.docker.docker_compose:
-    project_src: /home/krosis/docker-compose/portainer
+    project_src: "{{lookup('env', 'HOME')}}/docker-compose/portainer"
     state: present
