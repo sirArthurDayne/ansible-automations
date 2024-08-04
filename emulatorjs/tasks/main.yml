@@ -1,0 +1,5 @@
+---
+- name: Make config directory
+- name: Make data directory
+- name: Move docker-compose template to device
+- name: Run emulatorjs docker-compose up

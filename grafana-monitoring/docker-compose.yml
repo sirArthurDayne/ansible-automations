@@ -1,0 +1,33 @@
+# deploy monitoring services for docker, lxc and proxmox metrics
+
+services:
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    ports:
+      - '8086:8086' # puerto web
+      - 8089:8089/udp # puerto de ingesta
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    networks:
+      - grafana-monitoring
+    restart: unless-stopped
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:main-ubuntu
+    user: "0"
+    ports:
+      - '4000:3000' # puerto web
+    networks:
+      - grafana-monitoring
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+
+volumes:
+  influxdb-storage:
+  grafana-storage:
+
+networks:
+  grafana-monitoring:
