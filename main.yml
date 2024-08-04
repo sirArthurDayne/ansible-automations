@@ -1,4 +1,4 @@
-# ansible-playbook -i hosts -K -v
+# ansible-playbook -i hosts -K -v main.yml
 ---
   - name: Executing Roles
     hosts: all

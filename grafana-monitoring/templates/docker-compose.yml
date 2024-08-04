@@ -3,12 +3,12 @@
 services:
   influxdb:
     container_name: influxdb
-    image: influxdb:latest
+    image: influxdb:2
     ports:
       - '8086:8086' # puerto web
-      - 8089:8089/udp # puerto de ingesta
     volumes:
-      - influxdb-storage:/var/lib/influxdb
+      - influxdb-storage:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
     networks:
       - grafana-monitoring
     restart: unless-stopped
@@ -25,8 +25,28 @@ services:
       - grafana-storage:/var/lib/grafana
     restart: unless-stopped
 
+  telegraf:
+    container_name: telegraf
+    image: telegraf:latest
+    # user: krosis:1000
+    networks:
+      - grafana-monitoring
+    volumes:
+      - '/home/krosis/docker-compose/grafana-monitoring/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro' #config file
+      - '/:/hostfs:ro' # to monitor docker-vm
+      - '/var/run/docker.sock:/var/run/docker.sock' # to monitor docker containers
+    restart: unless-stopped
+    environment:
+      - HOST_ETC=/hostfs/etc
+      - HOST_PROC=/hostfs/proc
+      - HOST_SYS=/hostfs/sys
+      - HOST_VAR=/hostfs/var
+      - HOST_RUN=/hostfs/run
+      - HOST_MOUNT_PREFIX=/hostfs
+
 volumes:
   influxdb-storage:
+  influxdb-config:
   grafana-storage:
 
 networks:

@@ -8,9 +8,9 @@
     owner: krosis  # Optional ownership
     group: krosis  # Optional group ownership
 
-- name: Deploy Grafana with Docker-compose
+- name: Copy docker-compose template to Server
   ansible.builtin.template:
-    src: "templates/docker_compose.yml"
+    src: "templates/docker-compose.yml"
     dest: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring/docker-compose.yaml"
     mode: '0755'  # Optional file permissions
     owner: krosis  # Optional ownership
@@ -19,3 +19,4 @@
 - name: Run Grafana docker-compose up
   community.docker.docker_compose_v2:
     project_src: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring"
+    recreate: "auto" #"never","always","auto"->default
