@@ -1,4 +1,4 @@
-# deploy monitoring services for docker, lxc and proxmox metrics
+# deploy monitoring services for proxmox (nodes, lxc, vms) with influxdb and grafana
 
 services:
   influxdb:
