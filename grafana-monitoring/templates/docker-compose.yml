@@ -28,7 +28,7 @@ services:
   telegraf:
     container_name: telegraf
     image: telegraf:latest
-    # user: krosis:1000
+    user: telegraf:988
     networks:
       - grafana-monitoring
     volumes:
