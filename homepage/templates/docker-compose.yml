@@ -1,0 +1,9 @@
+services:
+  dashy:
+    image: lissy93/dashy:latest
+    container_name: dashboard
+    volumes:
+      - ./config/conf.yml:/app/user-data/conf.yml
+    ports:
+      - "8090:8080"
+    restart: unless-stopped

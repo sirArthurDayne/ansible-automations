@@ -1,0 +1,36 @@
+- name: Setup dashy directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/homepage"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Setup dashy config directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/homepage/config"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Move docker-compose to server
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/homepage/docker-compose.yaml"
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Move dashy conf.yml to server
+  ansible.builtin.template:
+    src: "config/conf.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/homepage/config/conf.yml"
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Run Dashy docker-compose up
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/homepage"
+    state: present
