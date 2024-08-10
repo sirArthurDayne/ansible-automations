@@ -8,6 +8,38 @@
     owner: krosis  # Optional ownership
     group: krosis  # Optional group ownership
 
+- name: Setup Telegraf directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring/telegraf"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Setup Prometheus directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring/prometheus"
+    state: directory
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Copy telegraf.conf to Server
+  ansible.builtin.template:
+    src: "telegraf/telegraf.conf"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring/telegraf/telegraf.conf"
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Copy prometheus config to Server
+  ansible.builtin.template:
+    src: "prometheus/prometheus.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/grafana-monitoring/prometheus/prometheus.yml"
+    mode: '0755'  # Optional file permissions
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
 - name: Copy docker-compose template to Server
   ansible.builtin.template:
     src: "templates/docker-compose.yml"
