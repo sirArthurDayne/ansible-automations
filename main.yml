@@ -4,8 +4,8 @@
     hosts: all
     become: true
     roles:
-      - homepage
-      # - grafana-monitoring
+      - grafana-monitoring
+      # - homepage
       # - netboot.xyz
       # - docker
       # - portainer

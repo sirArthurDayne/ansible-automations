@@ -44,7 +44,6 @@ services:
       - HOST_RUN=/hostfs/run
       - HOST_MOUNT_PREFIX=/hostfs
 
-    #TODO: deploy prometheus
   prometheus:
     container_name: prometheus
     image: prom/prometheus
@@ -52,13 +51,26 @@ services:
       - 9080:9090
     volumes:
       - '/home/krosis/docker-compose/grafana-monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml' #config file
+      - prometheus-storage:/prometheus #persistent storage
     networks:
       - grafana-monitoring
+    restart: unless-stopped
+
+  # speedtest: optional
+  speedtest-exporter:
+    image: miguelndecarvalho/speedtest-exporter
+    container_name: speedtest-exporter
+    ports:
+      - 9798:9798
+    networks:
+      - grafana-monitoring
+    restart: unless-stopped
 
 volumes:
   influxdb-storage:
   influxdb-config:
   grafana-storage:
+  prometheus-storage:
 
 networks:
   grafana-monitoring:
