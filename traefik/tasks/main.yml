@@ -1,0 +1,67 @@
+# Deploy traefik service via docker-compose
+# move files
+- name: Setup traefik directory in Server
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/traefik"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Setup logs directory inside traefik
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/logs"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy docker-compose file to server
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/docker-compose.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy .env file to server
+  ansible.builtin.template:
+    src: "templates/.env"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/.env"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy traefik config file
+  ansible.builtin.template:
+    src: "traefik-config/traefik.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/traefik.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy config.yml file
+  ansible.builtin.template:
+    src: "traefik-config/traefik.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/config.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy acme.json with 0600 permission
+  ansible.builtin.template:
+    src: "traefik-config/acme.json"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/acme.json"
+    mode: '0600' # permission required
+    owner: krosis  # Optional ownership
+    group: krosis  # Optional group ownership
+
+- name: Create docker network 'proxy'
+  community.docker.docker_network:
+    name: proxy
+    state: present
+
+- name: Deploy traefik with docker-compose up
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/traefik"
+    recreate: "always" # 'always' for testing, switch to 'auto' in release

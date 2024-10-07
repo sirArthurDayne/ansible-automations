@@ -1,0 +1,46 @@
+#deploy traefik reverse proxy service
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:latest
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    networks:
+      proxy:
+    ports:
+      - 80:80 #HTTP port
+      - 443:443 #HTTPS port
+      # - 8010:8080 #default webUI port
+    env_file: .env
+    environment:
+      - CF_API_EMAIL=${CF_API_EMAIL}
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+      - ADM_PASSWORD=${ADM_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/krosis/docker-compose/traefik/config.yml:/config.yml:ro
+      - /home/krosis/docker-compose/traefik/traefik.yml:/traefik.yml:ro
+      - /home/krosis/docker-compose/traefik/acme.json:/acme.json
+      - /home/krosis/docker-compose/traefik/logs:/var/log/traefik
+    labels:
+      - "traefik.enable=true" #use traefik on itself
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.homelab.blastwave.xyz`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${ADM_PASSWORD}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheaders.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.homelab.blastwave.xyz`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=homelab.blastwave.xyz" #enable for all domain
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.homelab.blastwave.xyz"
+      - "traefik.http.routers.traefik-secure.service=api@internal" #enable metrics api
+
+networks:
+  proxy:
+    external: true
