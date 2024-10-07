@@ -4,10 +4,11 @@
     hosts: all
     become: true
     roles:
-      # - traefik
-      # - grafana-monitoring
-      # - homepage
-      # - netboot.xyz
+      # - system/ubuntu
       # - docker
-      - portainer
+      # - portainer
+      - traefik
+      # - netboot.xyz
       # - pyenv
+      # - homepage
+      # - grafana-monitoring

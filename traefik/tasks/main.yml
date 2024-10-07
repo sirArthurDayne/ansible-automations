@@ -42,7 +42,7 @@
 
 - name: Copy config.yml file
   ansible.builtin.template:
-    src: "traefik-config/traefik.yml"
+    src: "traefik-config/config.yml"
     dest: "{{ lookup('env', 'HOME') }}/docker-compose/traefik/config.yml"
     mode: '0755'
     owner: krosis
