@@ -17,6 +17,8 @@ services:
       - CF_API_EMAIL=${CF_API_EMAIL}
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
       - ADM_PASSWORD=${ADM_PASSWORD}
+    command:
+      - '--certificatesresolvers.cloudflare.acme.email=${CF_API_EMAIL}'
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
