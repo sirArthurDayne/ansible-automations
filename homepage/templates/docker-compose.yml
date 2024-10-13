@@ -1,9 +1,27 @@
 services:
   dashy:
     image: lissy93/dashy:latest
-    container_name: dashboard
+    container_name: dashy
     volumes:
       - ./config/conf.yml:/app/user-data/conf.yml
-    ports:
-      - "8090:8080"
+    # ports:
+    #   - "8090:8080"
     restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashy.entrypoints=http"
+      - "traefik.http.routers.dashy.rule=Host(`dashy.homelab.blastwave.xyz`)"
+      - "traefik.http.middlewares.dashy-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.dashy.middlewares=dashy-https-redirect"
+      - "traefik.http.routers.dashy-secure.entrypoints=https"
+      - "traefik.http.routers.dashy-secure.rule=Host(`dashy.homelab.blastwave.xyz`)"
+      - "traefik.http.routers.dashy-secure.tls=true"
+      - "traefik.http.routers.dashy-secure.service=dashy"
+      - "traefik.http.services.dashy.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

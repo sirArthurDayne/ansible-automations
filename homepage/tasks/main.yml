@@ -33,4 +33,4 @@
 - name: Run Dashy docker-compose up
   community.docker.docker_compose_v2:
     project_src: "{{ lookup('env', 'HOME') }}/docker-compose/homepage"
-    state: present
+    recreate: "auto"

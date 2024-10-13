@@ -1,241 +1,226 @@
-appConfig:
-  theme: colorful
-  customColors:
-    material-dark-original:
-      primary: '#f36558'
-      background: '#39434C'
-      background-darker: '#eb615c'
-      material-light: '#f36558'
-      item-text-color: '#ff948a'
-      curve-factor: 5px
-  enableErrorReporting: true
-  layout: auto
-  iconSize: medium
-  language: en
 pageInfo:
-  title: Demo Homelab
-  description: Live Demo of Dashy
+  title: Firelink-Shrine
+  description: Bienvenido al Maleborge!
   navLinks:
     - title: GitHub
-      path: https://github.com/Lissy93/dashy
+      path: https://github.com/sirtArthurDayne
     - title: Documentation
       path: https://dashy.to/docs
-  footerText: ''
+appConfig:
+  theme: one-dark
+  layout: horizontal
+  iconSize: medium
 sections:
-  - name: Media & Entertainment
-    icon: fas fa-photo-video
+  - name: Monitoreo
+    icon: fa-monitor
     displayData:
       sortBy: default
-      cols: 2
-      itemCountX: 6
+      rows: 4
+      cols: 1
+      collapsed: false
+      hideForGuests: false
     items:
-      - title: Alltube
-        icon: hl-alltube
-        id: 0_1956_alltube
-      - title: YT Downloads
-        icon: hl-youtubedl
-        id: 1_1956_ytdownloads
-      - title: Couch Potato
-        icon: hl-couchpotato
-        id: 2_1956_couchpotato
-      - title: Jellyfin
-        icon: hl-jellyfin
-        id: 3_1956_jellyfin
-      - title: FreshRSS
-        icon: hl-freshrss
-        id: 4_1956_freshrss
-      - title: Requestrr
-        icon: hl-requestrr
-        id: 5_1956_requestrr
-      - title: Web Torrent
-        icon: hl-webtorrent
-        id: 6_1956_webtorrent
-      - title: Airsonic
-        icon: hl-airsonic
-        id: 7_1956_airsonic
-      - title: FilePizza
-        icon: hl-filepizza
-        id: 8_1956_filepizza
-      - title: Plex
-        icon: hl-plex
-        id: 9_1956_plex
-      - title: PlexDrive
-        icon: hl-plexdrive
-        id: 10_1956_plexdrive
-      - title: PlexRequests
-        icon: hl-plexrequests
-        id: 11_1956_plexrequests
-  - name: Networking
-    icon: fas fa-network-wired
-    items:
-      - title: OPNSense
-        description: Firewall and network config
-        icon: hl-opnsense
-        id: 0_1064_opnsense
-      - title: Pi-Hole
-        description: DNS ad-blocking
-        icon: hl-pihole
-        id: 1_1064_pihole
-      - title: MalTrail
-        description: Malicious traffic detection system
-        icon: hl-router
-        id: 2_1064_maltrail
-      - title: Ntopng
-        description: Network traffic probe + usage monitor
-        icon: hl-ntop
-        id: 3_1064_ntopng
-      - title: Monit
-        description: Status of firewall system alerts
-        icon: hl-monit
-        id: 4_1064_monit
-      - title: PiAlert
-        description: Presence monitoring and ARP scanning
-        icon: hl-alertmanager
-        id: 5_1064_pialert
-  - name: Network Monitoring
-    icon: fas fa-tachometer-alt-fast
-    items:
-      - title: SmokePing
-        description: Network latency monitoring
-        icon: hl-smokeping
-        id: 0_1840_smokeping
-      - title: StatPing
-        description: Up-time monitoring for local service
-        icon: hl-statping
-        id: 1_1840_statping
-      - title: LibreSpeed
-        description: Local network speed and latency test
-        icon: hl-librespeed
-        id: 2_1840_librespeed
-      - title: NetData
-        description: Real-time system resource usage
-        icon: hl-netdata
-        id: 3_1840_netdata
-      - title: Zabbix
-        description: IT Monitoring
-        icon: hl-zabbix
-        id: 4_1840_zabbix
-      - title: Cockpit
-        description: All-in-one control panel
-        icon: hl-cockpit
-        id: 5_1840_cockpit
-  - name: System Monitoring
-    icon: fas fa-monitor-heart-rate
-    items:
-      - title: cAdvisor
-        description: Container monitoring
-        icon: hl-cadvisor
-        id: 0_1739_cadvisor
-      - title: Glances
-        description: Simple resource usage
-        icon: hl-glances
-        id: 1_1739_glances
-      - title: Dozzle
-        description: Docker container web log viewer
-        icon: hl-dozzle
-        id: 2_1739_dozzle
-      - title: HealthChecks
-        description: Cron Job Monitoring
-        icon: hl-healthchecks
-        url: https://healthchecks.io/checks/
-        id: 3_1739_healthchecks
-      - title: Grafana
-        description: Data visualised on dashboards
+      - &ref_0
+        title: Grafana
+        description: grafana dashboard
         icon: hl-grafana
-        id: 4_1739_grafana
-      - title: Prometheus
-        description: System Statistics Aggregation with PromQL
+        url: https://monitor.homelab.blastwave.xyz/
+        target: newtab
+        id: 0_956_grafana
+      - &ref_1
+        title: Gotify
+        description: alertas del sistema
+        icon: hl-gotify
+        url: https://gotify.homelab.blastwave.xyz/#/
+        target: newtab
+        id: 1_956_gotify
+      - &ref_2
+        title: Prometheus
+        description: dashboard de prometheus
         icon: hl-prometheus
-        id: 5_1739_prometheus
-  - name: Home Control
-    icon: fas fa-house-signal
-    items:
-      - title: Home Assistant
-        description: Smart home control
-        icon: hl-home-assistant
-        id: 0_1162_homeassistant
-      - title: Node-RED
-        description: Flow-based automation
-        icon: hl-nodered
-        id: 1_1162_nodered
-      - title: OctoPrint
-        description: 3D Printer Control
-        icon: hl-octoprint
-        id: 2_1162_octoprint
-      - title: Zigbee 2 Mqtt
-        description: Zigbee to MQTT
-        icon: hl-zigbee2mqtt
-        id: 3_1162_zigbeemqtt
-      - title: Alarm Pi
-        description: IOT telegram-controlled alarm clock
-        icon: hl-alarmpi
-        id: 4_1162_alarmpi
-      - title: Brew Pi
-        description: IOT brewery controller
-        icon: hl-brewpi
-        id: 5_1162_brewpi
-  - name: Productivity
-    icon: fas fa-bookmark
-    items:
-      - title: NextCloud
-        description: File storage and apps
-        icon: hl-nextcloud
-        id: 0_1302_nextcloud
-      - title: BitWarden
-        description: Password manager
-        icon: hl-bitwarden
-        id: 1_1302_bitwarden
-      - title: Readarr
-        description: E-reader app
-        icon: hl-readarr
-        id: 2_1302_readarr
-      - title: Wallabag
-        description: Bookmark Manager
-        icon: hl-wallabag
-        id: 3_1302_wallabag
-      - title: ArchiveBox
-        description: Archive Manager
-        icon: hl-archivebox
-        id: 4_1302_archivebox
-      - title: VS Code
-        description: Cloud code editor
-        icon: hl-code
-        id: 5_1302_vscode
-  - name: Learn more about Dashy
-    icon: fas fa-rocket
+        url: http://noveria.blastwave.lab:9080/
+        target: newtab
+        id: 2_956_prometheus
+      - &ref_3
+        title: influxdb
+        description: cliente influxdb
+        icon: hl-influxdb
+        url: http://noveria.blastwave.lab:8086/
+        target: newtab
+        id: 3_956_influxdb
+      - &ref_4
+        title: Traefik
+        description: traefik dashboard
+        icon: hl-traefik
+        url: https://traefik-dashboard.homelab.blastwave.xyz/
+        target: newtab
+        id: 4_956_traefik
+    filteredItems:
+      - *ref_0
+      - *ref_1
+      - *ref_2
+      - *ref_3
+      - *ref_4
+  - name: Proxmox
+    icon: hl-proxmox
     displayData:
-      collapsed: true
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
     items:
-      - title: GitHub
-        description: Source Code, Issues and Pull Requests
-        url: https://github.com/lissy93/dashy
-        icon: fab fa-github-alt
-        id: 0_2073_github
-      - title: Docs
-        description: Configuring & Usage Documentation
-        provider: Dashy.to
-        icon: far fa-book
-        url: https://dashy.to/docs
-        id: 1_2073_docs
-      - title: Showcase
-        description: See how others are using Dashy
-        url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
-        icon: far fa-grin-hearts
-        id: 2_2073_showcase
-      - title: Config Docs
-        description: See full list of configuration options
-        url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
-        icon: fas fa-wrench
-        id: 3_2073_configdocs
-      - title: Demo 2
-        description: Project management links for Dashy
-        icon: fas fa-sparkles
-        url: https://live.dashy.to/
+      - &ref_5
+        title: Proxmox
+        description: Proxmox Citadel dashboard
+        icon: hl-proxmox
+        url: https://pve.homelab.blastwave.xyz/
         target: newtab
-        id: 4_2073_demo
-      - title: Demo 3
-        description: Live deployment of development env
-        icon: far fa-sparkles
-        url: https://dev.dashy.to/
+        id: 0_765_proxmox
+    filteredItems:
+      - *ref_5
+  - name: Redes-Casa
+    icon: fa-network
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - &ref_6
+        title: OPNsense
+        description: opnsense
+        icon: hl-opnsense
+        url: https://rtnormandy.blastwave.lab/
         target: newtab
-        id: 5_2073_demo
+        id: 0_920_opnsense
+      - &ref_7
+        title: APNormandy
+        description: dashboard access point
+        icon: hl-grandstream
+        url: https://apnormandy.blastwave.lab/overview/index
+        target: newtab
+        id: 1_920_apnormandy
+      - &ref_8
+        title: TPLink Switch
+        description: switch tplink
+        icon: hl-tplink
+        url: http://swnormandy.blastwave.lab/
+        target: newtab
+        id: 2_920_tplinkswitch
+      - &ref_9
+        title: NETGEAR switch
+        description: dashboard switch netgear
+        icon: hl-netgear
+        url: http://swnormandy2.blastwave.lab/
+        target: newtab
+        id: 3_920_netgearswitch
+    filteredItems:
+      - *ref_6
+      - *ref_7
+      - *ref_8
+      - *ref_9
+  - name: Docker-Services
+    icon: fa-docker
+    displayData:
+      sortBy: default
+      rows: 4
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - &ref_10
+        title: Portainer
+        description: Portainer Dashboard
+        icon: hl-portainer
+        url: https://portainer.homelab.blastwave.xyz/
+        target: newtab
+        id: 0_1481_portainer
+      - &ref_11
+        title: Dashy
+        description: Dashboard
+        icon: hl-dashy
+        url: http://noveria.blastwave.lab:8090/
+        target: newtab
+        id: 1_1481_dashy
+      - &ref_12
+        title: EmulatorJS
+        description: Emulator Menu
+        icon: hl-emulatorjs
+        url: http://10.10.0.115:9090/
+        target: newtab
+        id: 2_1481_emulatorjs
+      - &ref_13
+        title: Emulatorjs-config
+        description: config emulatorjs
+        icon: hl-emulatorjs
+        url: http://10.10.0.115:3420/
+        target: newtab
+        id: 3_1481_emulatorjsconfig
+      - &ref_14
+        title: netboot.xyz
+        description: netboot dashboard
+        icon: hl-netbootxyz
+        url: http://10.10.0.115:3000/
+        target: newtab
+        id: 4_1481_netbootxyz
+    filteredItems:
+      - *ref_10
+      - *ref_11
+      - *ref_12
+      - *ref_13
+      - *ref_14
+  - name: NAS
+    icon: fa-nas
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - &ref_15
+        title: NAS
+        description: NAS
+        icon: hl-cockpit
+        url: https://10.10.0.120:9090/system
+        target: newtab
+        id: 0_226_nas
+    filteredItems:
+      - *ref_15
+  - name: Tools
+    icon: fa-tools
+    displayData:
+      sortBy: default
+      rows: 3
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - &ref_16
+        title: ChatGPT
+        description: chatgpt.com
+        icon: hl-openai-light
+        url: https://chatgpt.com
+        target: newtab
+        id: 0_529_chatgpt
+      - &ref_17
+        title: Keeper
+        description: keeper vault
+        icon: hl-bitwarden
+        url: https://keepersecurity.com/vault/
+        target: newtab
+        id: 1_529_keeper
+      - &ref_18
+        title: Cloudflare
+        description: cloudlare dashboard
+        icon: hl-cloudflare
+        url: https://dash.cloudflare.com/
+        target: newtab
+        id: 2_529_cloudflare
+    filteredItems:
+      - *ref_16
+      - *ref_17
+      - *ref_18
+
