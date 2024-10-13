@@ -10,7 +10,7 @@ services:
     networks:
       proxy:
     environment:
-      - TZ=America/Colombia
+      - TZ=America/Bogota
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gotify.entrypoints=http"

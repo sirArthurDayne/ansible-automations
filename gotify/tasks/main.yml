@@ -1,0 +1,20 @@
+- name: Setup Gotify directory in Server
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/gotify"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy docker-compose file to server
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/gotify/docker-compose.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Deploy Gotify with docker-compose up
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/gotify"
+    recreate: "auto"
