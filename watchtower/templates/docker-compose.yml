@@ -1,3 +1,7 @@
+secrets:
+  access_token:
+    file: access_token
+
 services:
   watchtower:
     image: containrrr/watchtower
@@ -26,6 +30,9 @@ services:
       - WATCHTOWER_NOTIFICATIONS=gotify
       - WATCHTOWER_NOTIFICATION_GOTIFY_URL=https://gotify.homelab.blastwave.xyz
       - WATCHTOWER_NOTIFICATION_GOTIFY_TOKEN=/run/secrets/access_token
+      - WATCHTOWER_NOTIFICATION_GOTIFY_TLS_SKIP_VERIFY=false
+        #logs
+      - WATCHTOWER_LOG_FORMAT=pretty
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 # change this interval to whatever suits you
+    # command: --interval 30 # change this interval to whatever suits you
