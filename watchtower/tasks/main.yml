@@ -14,6 +14,14 @@
     owner: krosis
     group: krosis
 
+- name: Copy access_token file to Server
+  ansible.builtin.template:
+    src: "templates/access_token"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/watchtower/access_token"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
 - name: deploy watchtower
   community.docker.docker_compose_v2:
     project_src: "{{ lookup('env', 'HOME') }}/docker-compose/watchtower"
