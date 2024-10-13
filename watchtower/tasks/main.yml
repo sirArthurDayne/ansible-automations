@@ -1,0 +1,20 @@
+- name: Setup watchtower directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/watchtower"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy docker-compose template to Server
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/watchtower/docker-compose.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: deploy watchtower
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/watchtower"
+    recreate: "auto"
