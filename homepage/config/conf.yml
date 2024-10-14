@@ -3,7 +3,7 @@ pageInfo:
   description: Bienvenido al Maleborge!
   navLinks:
     - title: GitHub
-      path: https://github.com/sirtArthurDayne
+      path: https://github.com/sirArthurDayne
     - title: Documentation
       path: https://dashy.to/docs
 appConfig:
@@ -116,11 +116,19 @@ sections:
         url: http://swnormandy2.blastwave.lab/
         target: newtab
         id: 3_920_netgearswitch
+      - &ref_10
+        title: Adguard
+        description: DNS filter dashboard
+        icon: hl-adguard-home
+        url: http://10.10.0.1:3000/
+        target: newtab
+        id: 4_920_adguard
     filteredItems:
       - *ref_6
       - *ref_7
       - *ref_8
       - *ref_9
+      - *ref_10
   - name: Docker-Services
     icon: fa-docker
     displayData:
