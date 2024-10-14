@@ -6,14 +6,14 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/CO
-      - SUBFOLDER=/ #optional
-    volumes:
+      - TZ=America/Bogota
+      # - SUBFOLDER=/ #optional
+    volumes: # TODO: fix those paths before redeployment
       - ./config:/config
       - ./data:/data
     ports:
       - 4040:3000
       - 9090:80
-      - 4001:4001 #optional
+        #- 4001:4001 #optional (custom metadata port forwanding)
     restart: unless-stopped
 
