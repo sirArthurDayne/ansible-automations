@@ -13,7 +13,7 @@ services:
       # remove old images after update (useful for saving space)
       - WATCHTOWER_CLEANUP=true
       # the below will ignore labels set. It is worth checking out labels as that can be a more scalabe solution (automatic)
-      - WATCHTOWER_DISABLE_CONTAINERS=traefik influxdb prometheus emulatorjs telegraf netbootxyz
+      - WATCHTOWER_DISABLE_CONTAINERS=traefik prometheus emulatorjs netbootxyz
       # how frequently to check for images (default is 24 hours)
       - WATCHTOWER_POLL_INTERVAL=86400
       # choose whether to restart the containers after updates
@@ -35,4 +35,4 @@ services:
       - WATCHTOWER_LOG_FORMAT=pretty
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    # command: --interval 30 # change this interval to whatever suits you
+    command: --interval 30 # change this interval to whatever suits you
