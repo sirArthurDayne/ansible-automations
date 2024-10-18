@@ -1,0 +1,21 @@
+---
+- name: Create excalidraw folder structure
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/excalidraw"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Copy docker-compose template to Server
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/excalidraw/docker-compose.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: deploy Excalidraw with docker-compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/excalidraw"
+    recreate: "auto"
