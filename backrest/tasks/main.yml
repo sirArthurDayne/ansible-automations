@@ -1,0 +1,25 @@
+
+- name: make folder structure for backrest
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/docker-compose/{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: krosis
+    group: krosis
+  with_items:
+    - "backrest"
+    - "backrest/config"
+    - "backrest/cache"
+
+- name: copy docker template for backrest
+  ansible.builtin.template:
+    src: "templates/docker-compose.yml"
+    dest: "{{ lookup('env', 'HOME') }}/docker-compose/backrest/docker-compose.yml"
+    mode: '0755'
+    owner: krosis
+    group: krosis
+
+- name: Deploy BackRest
+  community.docker.docker_compose_v2:
+    project_src: "{{ lookup('env', 'HOME') }}/docker-compose/backrest"
+    recreate: "always"

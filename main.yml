@@ -5,6 +5,7 @@
     become: true
     roles:
       # - system/ubuntu
+      # - system/ubuntu/qemu-agent
       # - docker
       # - portainer
       # - traefik
@@ -15,3 +16,5 @@
       # - grafana-monitoring
       # - gotify
       # - watchtower
+      # - excalidraw
+      - backrest
