@@ -1,0 +1,10 @@
+- name: Download Helm Install Script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /home/krosis/get_helm.sh
+    mode: '0700'
+
+- name: Install Helm Package Manager for Kubernetes
+  ansible.builtin.shell: ./get_helm.sh
+  args:
+    chdir: /home/krosis

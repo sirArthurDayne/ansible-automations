@@ -12,4 +12,6 @@ ansible_become_method=sudo
 10.10.50.12
 10.10.50.13
 10.10.50.14
+
+[k3s-bastion]
 10.10.50.15
