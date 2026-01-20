@@ -11,11 +11,6 @@ entryPoints:
           scheme: https
   https:
     address: ":443"
-  # proxmox spice service
-  spice:
-    address: ":3128"
-  spice-tls:
-    address: ":61000"
 
 serversTransport:
   insecureSkipVerify: true
