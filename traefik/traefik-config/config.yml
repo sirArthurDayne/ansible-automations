@@ -3,7 +3,7 @@ http:
   # Routers
   # =========================
   routers:
-    proxmox:
+    pve-rtr:
       entryPoints:
         - https
       rule: "Host(`pve.homelab.blastwave.xyz`)"
@@ -11,7 +11,17 @@ http:
         - default-headers
       tls: {}
         # certResolver: cloudflare
-      service: proxmox
+      service: pve-svc
+
+    pve2-rtr:
+      entryPoints:
+        - https
+      rule: "Host(`pve2.homelab.blastwave.xyz`)"
+      middlewares:
+        - default-headers
+      tls: {}
+        # certResolver: cloudflare
+      service: pve2-svc
 
     ns1-rtr:
       entryPoints:
@@ -21,6 +31,25 @@ http:
           - default-headers
       tls: {}
       service: ns1-svc
+
+    ns2-rtr:
+      entryPoints:
+        - https
+      rule: "Host(`ns2.homelab.blastwave.xyz`)"
+      middlewares:
+          - default-headers
+      tls: {}
+      service: ns2-svc
+
+    nas-rtr:
+      entryPoints:
+        - https
+      rule: "Host(`nas.homelab.blastwave.xyz`)"
+      middlewares:
+          - default-headers
+      tls: {}
+      service: nas-svc
+
   # =========================
   # Services
   # =========================
@@ -31,10 +60,28 @@ http:
           - url: "http://10.10.50.10:5380"
         passHostHeader: true
 
-    proxmox:
+    ns2-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.50.11:5380"
+        passHostHeader: true
+
+    pve-svc:
       loadBalancer:
         servers:
           - url: "https://10.10.100.110:8006"
+        passHostHeader: true
+
+    pve2-svc:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.100.111:8006"
+        passHostHeader: true
+
+    nas-svc:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.50.120:9090"
         passHostHeader: true
 
   # =========================
