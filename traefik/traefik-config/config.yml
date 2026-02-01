@@ -50,6 +50,15 @@ http:
       tls: {}
       service: nas-svc
 
+    ap1-rtr:
+      entryPoints:
+        - https
+      rule: "Host(`ap1.homelab.blastwave.xyz`)"
+      middlewares:
+          - default-headers
+      tls: {}
+      service: ap1-svc
+
   # =========================
   # Services
   # =========================
@@ -82,6 +91,12 @@ http:
       loadBalancer:
         servers:
           - url: "https://10.10.50.120:9090"
+        passHostHeader: true
+
+    ap1-svc:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.100.102"
         passHostHeader: true
 
   # =========================
