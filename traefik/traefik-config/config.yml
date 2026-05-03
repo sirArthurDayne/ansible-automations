@@ -96,7 +96,7 @@ http:
     ap1-svc:
       loadBalancer:
         servers:
-          - url: "https://10.10.100.102"
+          - url: "https://ap1.blastwave.lab"
         passHostHeader: true
 
   # =========================
